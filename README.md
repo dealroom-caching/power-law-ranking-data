@@ -1,6 +1,6 @@
-# LP Data Cache
+# Power Law Ranking Data Cache
 
-This repository contains automatically updated cache data for the LP ranking application.
+This repository contains automatically updated cache data for the power law ranking application.
 
 ## How it works
 
@@ -11,7 +11,9 @@ This repository contains automatically updated cache data for the LP ranking app
 
 ## Files
 
-- `investor-cache.json` - Main cache file used by the application
+- `output_UK.json`, `output_Global.json`, etc. - Regional cache files used by the application
+- `Overview.json` - Overview data
+- `weights.json` - Weights configuration
 - `fetch-cache-data.js` - Script to fetch and update cache data
 - `.github/workflows/refresh-cache.yml` - GitHub Action workflow
 
@@ -25,24 +27,20 @@ You can manually trigger a cache update:
 
 ## Cache Structure
 
-The cache contains data from Google Sheets with the following structure:
+Each cache file contains data from a specific Google Sheets worksheet with the following structure:
 
 ```json
 {
-  "lovable": {
-    "headers": ["Investor name", "investor_link", ...],
-    "rows": [["Investor 1", "link1", ...], ...],
-    "weightedColumns": [false, false, true, ...]
-  },
-  "weights": {
-    "headers": [...],
-    "rows": [...],
-    "weightedColumns": [...]
-  }
+  "headers": ["investor_name", "country", "launch_year", ...],
+  "rows": [["Investor 1", "UK", "2020", ...], ...],
+  "weightedColumns": [false, false, true, ...]
 }
 ```
 
 ## Access
 
-The cache is publicly accessible via GitHub raw files:
-- `https://raw.githubusercontent.com/Kjeld-dealroom/lp-data/main/public/cached-data/investor-cache.json`
+The cache files are publicly accessible via GitHub raw files:
+- `https://raw.githubusercontent.com/dealroom-caching/power-law-ranking-data/main/public/cached-data/output_UK.json`
+- `https://raw.githubusercontent.com/dealroom-caching/power-law-ranking-data/main/public/cached-data/output_Global.json`
+- `https://raw.githubusercontent.com/dealroom-caching/power-law-ranking-data/main/public/cached-data/Overview.json`
+- And all other regional JSON files...

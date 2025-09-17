@@ -1,4 +1,4 @@
-# Setup Instructions for lp-data Repository
+# Setup Instructions for power-law-ranking-data Repository
 
 ## Step 1: Initialize the Repository
 
@@ -13,14 +13,14 @@
    git add .
    git commit -m "Initial commit: LP data cache with automated updates"
    git branch -M main
-   git remote add origin https://github.com/Kjeld-dealroom/lp-data.git
+   git remote add origin https://github.com/dealroom-caching/power-law-ranking-data.git
    git push -u origin main
    ```
 
 ## Step 2: Configure GitHub Repository
 
 1. **Make the repository public:**
-   - Go to https://github.com/Kjeld-dealroom/lp-data
+   - Go to https://github.com/dealroom-caching/power-law-ranking-data
    - Click "Settings" tab
    - Scroll down to "Danger Zone"
    - Click "Change repository visibility"
@@ -45,10 +45,11 @@
 
 2. **Check if it works:**
    - Wait for the action to complete
-   - Check if `public/cached-data/investor-cache.json` was updated
-   - Verify the raw URL works:
+   - Check if the JSON files in `public/cached-data/` were updated
+   - Verify the raw URLs work:
      ```
-     https://raw.githubusercontent.com/Kjeld-dealroom/lp-data/main/public/cached-data/investor-cache.json
+     https://raw.githubusercontent.com/dealroom-caching/power-law-ranking-data/main/public/cached-data/output_UK.json
+     https://raw.githubusercontent.com/dealroom-caching/power-law-ranking-data/main/public/cached-data/Overview.json
      ```
 
 ## Step 4: Verify with Your App
@@ -64,7 +65,7 @@ Once the GitHub repo is set up and the raw URL is working, your main application
 - `package.json` - Node.js project configuration
 - `fetch-cache-data.js` - Script to fetch data from Google Sheets
 - `.github/workflows/refresh-cache.yml` - GitHub Action workflow
-- `public/cached-data/investor-cache.json` - Initial cache file
+- `public/cached-data/*.json` - Cache files for each worksheet
 - `.gitignore` - Git ignore rules
 - `README.md` - Repository documentation
 

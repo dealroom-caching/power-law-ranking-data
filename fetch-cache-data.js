@@ -75,7 +75,9 @@ async function fetchGoogleSheetData(sheetName) {
     rows,
     weightedColumns: sheetName === 'weights' ? 
       rows[0]?.map(cell => cell && typeof cell === 'string' && cell.toLowerCase().includes('weighted')) || [] :
-      Array(headers.length).fill(false)
+      Array(headers.length).fill(false),
+    lastUpdated: new Date().toISOString(),
+    timestamp: Date.now()
   };
 }
 
@@ -112,8 +114,13 @@ async function main() {
           isUpdated = existingContent !== newContent;
         }
         
-        // Always write the file (overwrite)
+        // Always write the file (overwrite) and update timestamp
         fs.writeFileSync(filePath, newContent);
+        
+        // Force update the file timestamp to ensure git sees it as changed
+        const now = new Date();
+        fs.utimesSync(filePath, now, now);
+        
         savedFiles.push(filename);
         
         console.log(`📁 ${isUpdated ? 'Updated' : 'Saved'}: ${filename} (${sheetData.rows.length} rows)`);

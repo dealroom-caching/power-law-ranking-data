@@ -33,21 +33,30 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Show what files exist before committing
-          echo "Files in cache directory:"
+          # Show what files exist
+          echo "=== Files in cache directory ==="
           ls -la public/cached-data/
           
-          # Remove any files that shouldn't exist (legacy cleanup)
+          # Remove legacy files that shouldn't exist
+          echo "=== Removing legacy files ==="
           rm -f public/cached-data/power-cache.json public/cached-data/sheets-data.json
           
-          # Add all JSON files
-          git add public/cached-data/*.json
+          # Show git status before adding
+          echo "=== Git status before adding ==="
+          git status
           
-          # Check if there are any changes
-          if ! git diff --staged --quiet; then
-            echo "Changes detected, committing..."
-            git commit -m "🔄 Auto-update cached Google Sheets data [$(date +'%Y-%m-%d %H:%M:%S UTC')]"
-            git push
-          else
-            echo "No cache changes to commit"
-          fi
+          # Add all files in the directory (force add)
+          echo "=== Adding files ==="
+          git add -f public/cached-data/
+          
+          # Show what's staged
+          echo "=== Staged changes ==="
+          git diff --staged --name-only
+          
+          # Force commit all files (even if git thinks nothing changed)
+          echo "=== Committing changes ==="
+          git commit -m "🔄 Auto-update cached Google Sheets data [$(date +'%Y-%m-%d %H:%M:%S UTC')]" --allow-empty
+          
+          # Push the changes
+          echo "=== Pushing to GitHub ==="
+          git push

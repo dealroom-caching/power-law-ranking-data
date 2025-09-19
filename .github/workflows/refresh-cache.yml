@@ -32,8 +32,20 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add public/cached-data/
+          
+          # Show what files exist before committing
+          echo "Files in cache directory:"
+          ls -la public/cached-data/
+          
+          # Remove any files that shouldn't exist (legacy cleanup)
+          rm -f public/cached-data/power-cache.json public/cached-data/sheets-data.json
+          
+          # Add all JSON files
+          git add public/cached-data/*.json
+          
+          # Check if there are any changes
           if ! git diff --staged --quiet; then
+            echo "Changes detected, committing..."
             git commit -m "🔄 Auto-update cached Google Sheets data [$(date +'%Y-%m-%d %H:%M:%S UTC')]"
             git push
           else

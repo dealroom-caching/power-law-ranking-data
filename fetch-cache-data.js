@@ -102,9 +102,21 @@ async function main() {
         // Save individual JSON file for this worksheet
         const filename = FILENAME_MAPPING[sheetName];
         const filePath = path.join(cacheDir, filename);
-        fs.writeFileSync(filePath, JSON.stringify(sheetData, null, 2));
+        
+        // Check if file exists and compare content
+        const newContent = JSON.stringify(sheetData, null, 2);
+        let isUpdated = true;
+        
+        if (fs.existsSync(filePath)) {
+          const existingContent = fs.readFileSync(filePath, 'utf8');
+          isUpdated = existingContent !== newContent;
+        }
+        
+        // Always write the file (overwrite)
+        fs.writeFileSync(filePath, newContent);
         savedFiles.push(filename);
-        console.log(`📁 Saved: ${filename}`);
+        
+        console.log(`📁 ${isUpdated ? 'Updated' : 'Saved'}: ${filename} (${sheetData.rows.length} rows)`);
         
       } catch (error) {
         console.error(`❌ Failed to fetch ${sheetName}:`, error.message);

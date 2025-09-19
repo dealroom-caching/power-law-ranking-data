@@ -1,0 +1,36 @@
+{
+  "headers": [
+    "unicorn_seed_score",
+    "unicorn_early_score",
+    "unicorn_late_score",
+    "tb_seed_score",
+    "tb_early_score",
+    "tb_late_score",
+    "colt_seed_score",
+    "colt_early_score"
+  ],
+  "rows": [
+    [
+      100,
+      30,
+      10,
+      100,
+      30,
+      10,
+      25,
+      7.5
+    ]
+  ],
+  "weightedColumns": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "lastUpdated": "2025-09-19T17:13:39.963Z",
+  "timestamp": 1758302019963
+}

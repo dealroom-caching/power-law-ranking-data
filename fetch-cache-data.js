@@ -113,29 +113,11 @@ async function main() {
       }
     }
     
-    // Also save a combined file for compatibility
-    const cacheData = {
-      timestamp: new Date().toISOString(),
-      lastUpdated: new Date().toISOString(),
-      data: allData
-    };
-    
-    const combinedCacheFile = path.join(cacheDir, 'sheets-data.json');
-    fs.writeFileSync(combinedCacheFile, JSON.stringify(cacheData, null, 2));
-    
-    // Keep power-cache.json for backward compatibility (contains just output_UK data)
-    if (allData['output_UK']) {
-      const powerCacheFile = path.join(cacheDir, 'power-cache.json');
-      fs.writeFileSync(powerCacheFile, JSON.stringify(allData['output_UK'], null, 2));
-      savedFiles.push('power-cache.json');
-    }
-    
     console.log(`\n✅ Cache updated successfully!`);
-    console.log(`📁 Combined cache: ${combinedCacheFile}`);
     console.log(`📊 Total sheets cached: ${Object.keys(allData).length}`);
     console.log(`📄 Individual files saved: ${savedFiles.length}`);
     savedFiles.forEach(file => console.log(`   • ${file}`));
-    console.log(`🕒 Timestamp: ${cacheData.timestamp}`);
+    console.log(`🕒 Timestamp: ${new Date().toISOString()}`);
     
   } catch (error) {
     console.error('❌ Cache update failed:', error);
